@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="./contrib/modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Hide User Details in viewtopic]]></title>
+		<description lang="en"><![CDATA[With this mod, it is possible to hide the details of users on your forum when viewing a topic.  Simply click the image presented to see the users details.]]></description>
+		<author-notes lang="en"><![CDATA[The Happy Holidays version ^_^]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Rich McGirr]]></realname>
+				<username><![CDATA[RMcGirr83]]></username>
+				<homepage><![CDATA[http://www.phpbbmodders.net]]></homepage>
+				<email><![CDATA[rmcgirr83@gmail.com]]></email>
+			</author>
+		</author-group>
+		<mod-version>1.0.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>3.0.8</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2010-12-24</date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Initial Release]]></change>
+				</changelog>
+			</entry>
+		</history>
+		<link-group>
+			<link type="template" href="./contrib/subsilver2.xml" lang="en">subsilver2</link>
+		</link-group>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/images/*.*" to="images/*.*" />
+		</copy>
+		<open src="viewtopic.php">
+			<edit>
+				<find><![CDATA[	'L_BOOKMARK_TOPIC'		=> ($user->data['is_registered']]]></find>
+			</edit>
+			<edit>
+				<action type="after-add"><![CDATA[//BEGIN Hide User Details
+	'L_HIDEDETAILS'			=> $user->lang['HIDEDETAILS'],
+	'L_SHOWDETAILS'			=> $user->lang['SHOWDETAILS'],
+//END Hide User Details	]]></action>
+			</edit>
+		</open>
+		<open src="language/en/viewtopic.php">
+			<edit>
+				<find><![CDATA[?>]]></find>
+				<action type="before-add"><![CDATA[// BEGIN Hide User Details
+$lang = array_merge($lang, array(
+	'HIDEDETAILS'	=> 'Hide details',
+	'SHOWDETAILS'	=> 'Show details',
+	'USERDETAILS'	=> 'User Details',
+));
+//END Hide User Details]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<comment lang="en"><![CDATA[If you already have jQuery in use within your overall header file you do not need this edit.]]></comment>			
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/viewtopic_body.html">
+			<edit>
+				<find><![CDATA[<!-- INCLUDE overall_header.html -->]]></find>
+				<action type="after-add"><![CDATA[<script type="text/javascript">
+// ]]>&lt;![CDATA[<![CDATA[
+var hideDetails = '{LA_HIDEDETAILS}';
+var showDetails = '{LA_SHOWDETAILS}';
+showDisplay = function(id)
+{
+	// close open details
+	$('dt[id*=hide_]').each(function(){
+		if ($(this).is(':visible'))
+		{
+			var divid = $(this).attr('id').replace('hide_','');
+			$('#hide_' + divid).hide();
+			$('a#href_' + divid).replaceWith('<a href="#" id="href_'+divid+'" onclick="showDisplay('+divid+'); return false;"><img src="{ROOT_PATH}images/open.png" alt="'+showDetails+'" title="'+showDetails+'" height="16px" width="16px" /></a>');
+		}
+	});
+	
+	$('#show_' + id).find('a#href_' + id).replaceWith('<a href="#" id="href_' +id+'" onclick="hideDisplay('+id+'); return false;"><img src="{ROOT_PATH}images/close.png" alt="'+hideDetails+'" title="'+hideDetails+'" height="16px" width="16px" /></a>');
+	$('#hide_' + id).fadeIn();
+};
+
+hideDisplay = function(id)
+{
+	$('#hide_' + id).fadeOut();
+	$('a#href_' + id).replaceWith('<a href="#" id="href_'+id+'" onclick="showDisplay('+id+'); return false;"><img src="{ROOT_PATH}images/open.png" alt="'+showDetails+'" title="'+showDetails+'" height="16px" width="16px" /></a>');
+}
+// ]]>]]&gt;<![CDATA[
+</script>]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		<dd>&nbsp;</dd>
+
+		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->
+		<!-- IF postrow.POSTER_JOINED --><dd><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}</dd><!-- ENDIF -->
+		<!-- IF postrow.POSTER_FROM --><dd><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}</dd><!-- ENDIF -->
+
+		<!-- IF postrow.S_PROFILE_FIELD1 -->
+			<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
+			<dd><strong>{postrow.PROFILE_FIELD1_NAME}:</strong> {postrow.PROFILE_FIELD1_VALUE}</dd>
+		<!-- ENDIF -->
+
+		<!-- BEGIN custom_fields -->
+			<dd><strong>{postrow.custom_fields.PROFILE_FIELD_NAME}:</strong> {postrow.custom_fields.PROFILE_FIELD_VALUE}</dd>
+		<!-- END custom_fields -->]]></find>
+				<action type="replace-with"><![CDATA[			<!-- IF not S_IS_BOT && postrow.U_POST_AUTHOR -->
+			<dt id="show_{postrow.POST_ID}">
+					<strong>{L_USERDETAILS}:</strong>&nbsp;<a href="#" id="href_{postrow.POST_ID}" onclick="showDisplay({postrow.POST_ID}); return false;"><img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" /></a>
+			</dt>
+			<dt id="hide_{postrow.POST_ID}" style="display:none;"> 			
+				<!-- IF postrow.POSTER_POSTS != '' --><strong>{L_POSTS}:</strong> <!-- IF postrow.U_SEARCH --><a href="{postrow.U_SEARCH}" title="Search user posts">{postrow.POSTER_POSTS}</a><!-- ELSE -->{postrow.POSTER_POSTS}<!-- ENDIF --><br /><!-- ENDIF -->
+				<!-- IF postrow.POSTER_JOINED --><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}<br /><!-- ENDIF -->
+				<!-- IF postrow.POSTER_FROM --><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}<br /><!-- ENDIF -->
+				<!-- IF postrow.POSTER_LASTVISIT --><strong>{L_LASTVISIT}:</strong> {postrow.POSTER_LASTVISIT}<br /><!-- ENDIF -->
+				<!-- IF postrow.S_PROFILE_FIELD1 -->
+					<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
+					<strong>{postrow.PROFILE_FIELD1_NAME}:</strong> {postrow.PROFILE_FIELD1_VALUE}<br />
+				<!-- ENDIF -->
+
+				<!-- BEGIN custom_fields -->
+					<strong>{postrow.custom_fields.PROFILE_FIELD_NAME}:</strong> {postrow.custom_fields.PROFILE_FIELD_VALUE}<br />
+				<!-- END custom_fields -->
+			</dt>
+			<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Refresh the template in the ACP (ACP->Styles->Templates->Refresh).]]></diy-instructions>
+	</action-group>
+</mod>
