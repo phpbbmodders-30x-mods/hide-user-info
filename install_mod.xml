@@ -43,8 +43,6 @@
 		<open src="viewtopic.php">
 			<edit>
 				<find><![CDATA[	'L_BOOKMARK_TOPIC'		=> ($user->data['is_registered']]]></find>
-			</edit>
-			<edit>
 				<action type="after-add"><![CDATA[//BEGIN Hide User Details
 	'L_HIDEDETAILS'			=> $user->lang['HIDEDETAILS'],
 	'L_SHOWDETAILS'			=> $user->lang['SHOWDETAILS'],
