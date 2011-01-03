@@ -11,10 +11,30 @@
 		<author-notes lang="en"><![CDATA[The Happy Holidays version ^_^]]></author-notes>
 		<author-group>
 			<author>
+				<realname><![CDATA[Jari Kanerva]]></realname>
+				<username><![CDATA[tumba25]]></username>
+				<homepage><![CDATA[http://phpbbmodders.net]]></homepage>
+				<email><![CDATA[info@phpbbmodders.net]]></email>
+				<contributions-group>
+					<contributions status="current" from="2010-12-27" position="Developer"/>
+				</contributions-group>
+			</author>
+			<author>
 				<realname><![CDATA[Rich McGirr]]></realname>
 				<username><![CDATA[RMcGirr83]]></username>
-				<homepage><![CDATA[http://www.phpbbmodders.net]]></homepage>
-				<email><![CDATA[rmcgirr83@gmail.com]]></email>
+				<homepage><![CDATA[http://rmcgirr83.org]]></homepage>
+				<email><![CDATA[rmcgirr83@rmcgirr83.org]]></email>
+				<contributions-group>
+					<contributions status="current" from="2010-12-27" position="Developer"/>
+				</contributions-group>
+			</author>			
+			<author>
+				<realname><![CDATA[William Jacoby]]></realname>
+				<username><![CDATA[bonelifer]]></username>
+				<homepage><![CDATA[http://phpbbmodders.net]]></homepage>
+				<contributions-group>
+					<contributions status="current" from="2010-12-27" position="Tester"/>
+				</contributions-group>
 			</author>
 		</author-group>
 		<mod-version>1.0.0</mod-version>
@@ -59,7 +79,7 @@ showDisplay = function(id)
 		{
 			var divid = $(this).attr('id').replace('hide_','');
 			$('#hide_' + divid).hide();
-			$('a#href_' + divid).replaceWith(''<a href="#" id="href_'+divid+'" onclick="showDisplay('+divid+'); return false;"><img src="{ROOT_PATH}images/open.png" alt="'+showDetails+'" title="'+showDetails+'" height="16px" width="16px" /></a>'');
+			$('a#href_' + divid).replaceWith('<a href="#" id="href_'+divid+'" onclick="showDisplay('+divid+'); return false;"><img src="{ROOT_PATH}images/open.png" alt="'+showDetails+'" title="'+showDetails+'" height="16px" width="16px" /></a>');
 		}
 	});
 	

@@ -11,10 +11,30 @@
 		<author-notes lang="en"><![CDATA[The Happy Holidays version ^_^]]></author-notes>
 		<author-group>
 			<author>
+				<realname><![CDATA[Jari Kanerva]]></realname>
+				<username><![CDATA[tumba25]]></username>
+				<homepage><![CDATA[http://phpbbmodders.net]]></homepage>
+				<email><![CDATA[info@phpbbmodders.net]]></email>
+				<contributions-group>
+					<contributions status="current" from="2010-12-27" position="Developer"/>
+				</contributions-group>
+			</author>
+			<author>
 				<realname><![CDATA[Rich McGirr]]></realname>
 				<username><![CDATA[RMcGirr83]]></username>
-				<homepage><![CDATA[http://www.phpbbmodders.net]]></homepage>
-				<email><![CDATA[rmcgirr83@gmail.com]]></email>
+				<homepage><![CDATA[http://rmcgirr83.org]]></homepage>
+				<email><![CDATA[rmcgirr83@rmcgirr83.org]]></email>
+				<contributions-group>
+					<contributions status="current" from="2010-12-27" position="Developer"/>
+				</contributions-group>
+			</author>			
+			<author>
+				<realname><![CDATA[William Jacoby]]></realname>
+				<username><![CDATA[bonelifer]]></username>
+				<homepage><![CDATA[http://phpbbmodders.net]]></homepage>
+				<contributions-group>
+					<contributions status="current" from="2010-12-27" position="Tester"/>
+				</contributions-group>
 			</author>
 		</author-group>
 		<mod-version>1.0.0</mod-version>
@@ -105,7 +125,6 @@ hideDisplay = function(id)
 		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->
 		<!-- IF postrow.POSTER_JOINED --><dd><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}</dd><!-- ENDIF -->
 		<!-- IF postrow.POSTER_FROM --><dd><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}</dd><!-- ENDIF -->
-		<!-- IF postrow.POSTER_FLAG --><dd><strong>{L_FLAG}:</strong><br /><strong>{postrow.POSTER_FLAG}</strong></dd><!-- ENDIF -->
 
 		<!-- IF postrow.S_PROFILE_FIELD1 -->
 			<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
