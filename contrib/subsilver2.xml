@@ -37,7 +37,7 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.0</mod-version>
+		<mod-version>1.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -51,6 +51,13 @@
 					<change><![CDATA[Initial Release]]></change>
 				</changelog>
 			</entry>
+			<entry>
+				<date>2011-01-20</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Validation fixes]]></change>
+				</changelog>
+			</entry>			
 		</history>
 		<link-group>
 			<link type="parent" href="../install_mod.xml" lang="en">Main Install File</link>

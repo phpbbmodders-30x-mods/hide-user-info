@@ -37,7 +37,7 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.0</mod-version>
+		<mod-version>1.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -51,6 +51,13 @@
 					<change><![CDATA[Initial Release]]></change>
 				</changelog>
 			</entry>
+			<entry>
+				<date>2011-01-20</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Validation fixes]]></change>
+				</changelog>
+			</entry>			
 		</history>
 		<link-group>
 			<link type="template" href="./contrib/subsilver2.xml" lang="en">subsilver2</link>
@@ -60,15 +67,6 @@
 		<copy>
 			<file from="root/images/*.*" to="images/*.*" />
 		</copy>
-		<open src="viewtopic.php">
-			<edit>
-				<find><![CDATA[	'L_BOOKMARK_TOPIC'		=> ($user->data['is_registered']]]></find>
-				<action type="after-add"><![CDATA[//BEGIN Hide User Details
-	'L_HIDEDETAILS'			=> $user->lang['HIDEDETAILS'],
-	'L_SHOWDETAILS'			=> $user->lang['SHOWDETAILS'],
-//END Hide User Details	]]></action>
-			</edit>
-		</open>
 		<open src="language/en/viewtopic.php">
 			<edit>
 				<find><![CDATA[?>]]></find>
@@ -139,7 +137,7 @@ hideDisplay = function(id)
 					<strong>{L_USERDETAILS}:</strong>&nbsp;<a href="#" id="href_{postrow.POST_ID}" onclick="showDisplay({postrow.POST_ID}); return false;"><img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" /></a>
 			</dt>
 			<dt id="hide_{postrow.POST_ID}" style="display:none;"> 			
-				<!-- IF postrow.POSTER_POSTS != '' --><strong>{L_POSTS}:</strong> <!-- IF postrow.U_SEARCH --><a href="{postrow.U_SEARCH}" title="Search user posts">{postrow.POSTER_POSTS}</a><!-- ELSE -->{postrow.POSTER_POSTS}<!-- ENDIF --><br /><!-- ENDIF -->
+				<!-- IF postrow.POSTER_POSTS != '' --><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}<br /><!-- ENDIF -->
 				<!-- IF postrow.POSTER_JOINED --><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}<br /><!-- ENDIF -->
 				<!-- IF postrow.POSTER_FROM --><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}<br /><!-- ENDIF -->
 				<!-- IF postrow.POSTER_LASTVISIT --><strong>{L_LASTVISIT}:</strong> {postrow.POSTER_LASTVISIT}<br /><!-- ENDIF -->
