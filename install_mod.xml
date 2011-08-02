@@ -41,7 +41,7 @@
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
 			<entry>
@@ -59,20 +59,24 @@
 				</changelog>
 			</entry>
 			<entry>
-				<date>2011-06-20</date>
+				<date>2011-08-01</date>
 				<rev-version>1.0.2</rev-version>
 				<changelog lang="en">
-					<change><![CDATA[Preload images and check for jQuery present]]></change>
+					<change><![CDATA[Change viewtopic edits]]></change>
+					<change><![CDATA[minimal edits to viewtopic_body.html]]></change>
 				</changelog>
 			</entry>			
 		</history>
 		<link-group>
 			<link type="template" href="./contrib/subsilver2.xml" lang="en">subsilver2</link>
+			<link type="contrib" href="./contrib/update_101_102.xml" lang="en">Update from 1.0.1 to 1.0.2</link>
 		</link-group>
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/*.*" to="*.*" />
+			<file from="root/images/*.*" to="images/*.*" />
+			<file from="root/styles/prosilver/template/*.*" to="styles/prosilver/template/*.*" />
+			<file from="root/js/*.*" to="js/*.*" />
 		</copy>
 		<open src="language/en/viewtopic.php">
 			<edit>
@@ -87,110 +91,24 @@ $lang = array_merge($lang, array(
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/overall_header.html">
-			<edit>			
+			<edit>
+				<comment lang="en"><![CDATA[If you already have jQuery version 1.6.x in use within your overall header file you do not need this edit.]]></comment>			
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<script type="text/javascript">
-// ]]>&lt;![CDATA[<![CDATA[
-	!window.jQuery && document.write('<script type="text\/javascript" src="{ROOT_PATH}js\/jquery-1.6.1.min.js"><\/script>');
-// ]]>]]&gt;<![CDATA[
-</script>]]></action>
+				<action type="before-add"><![CDATA[<script type="text/javascript" src="{ROOT_PATH}js/jquery-1.6.2.min.js"></script>]]></action>
 			</edit>
 		</open>
-		<open src="styles/prosilver/template/viewtopic_body.html">
+		<open src="styles/prosilver/template/viewtopic_body.html">		
 			<edit>
 				<find><![CDATA[<!-- INCLUDE overall_header.html -->]]></find>
-				<action type="after-add"><![CDATA[<script type="text/javascript">
-// ]]>&lt;![CDATA[<![CDATA[
-var hideDetails = '{LA_HIDEDETAILS}';
-var showDetails = '{LA_SHOWDETAILS}';
-var imageOpen = '{ROOT_PATH}images/open.png';
-var imageClose = '{ROOT_PATH}images/close.png';
-$(function(){
-	var cache = [];
-	// Arguments are image paths relative to the current page.
-	$.preLoadImages = function() {
-		var args_len = arguments.length;
-		for (var i = args_len; i--;) {
-		  var cacheImage = document.createElement('img');
-		  cacheImage.src = arguments[i];
-		  cache.push(cacheImage);
-		}
-	};
-	$.preLoadImages(imageOpen, imageClose);
-
-	$("dt[id*='show_']").each(function(){
-		$(this).show();
-	});
-	$("dt[id*='hide_']").each(function(){
-		$(this).css({'display' : 'none'});
-	});
-});
-
-// close open details
-var closeDisplay = function()
-{
-	// close open details
-	$('dt[id*=hide_]').each(function(){
-		var divid = $(this).attr('id').replace('hide_','');
-		$('#show_' + divid).show();
-		$('a#href_' + divid).replaceWith('<a href="#" id="href_'+divid+'" onclick="showDisplay('+divid+'); return false;"><img src="'+imageOpen+'" height="16" width="16" alt="'+showDetails+'" title="'+showDetails+'" /></a>');
-		$(this).slideUp();
-	});
-};
-showDisplay = function(id)
-{
-	closeDisplay();
-	$('#hide_' + id).slideDown('slow', function(){
-		$('a#href_' + id).replaceWith('<a href="#" id="href_'+id+'" onclick="hideDisplay('+id+'); return false;"><img src="'+imageClose+'" height="16" width="16" alt="'+hideDetails+'" title="'+hideDetails+'" /></a>');
-	});
-}	
-
-hideDisplay = function(id)
-{
-	$('#hide_' + id).slideUp('slow', function(){
-		$('a#href_' + id).replaceWith('<a href="#" id="href_'+id+'" onclick="showDisplay('+id+'); return false;"><img src="'+imageOpen+'" height="16" width="16" alt="'+showDetails+'" title="'+showDetails+'" /></a>');
-	});
-}
-// ]]>]]&gt;<![CDATA[
-</script>]]></action>
+				<action type="after-add"><![CDATA[<!-- INCLUDE hide_user_details.html -->]]></action>
 			</edit>
 			<edit>
-				<comment lang="en"><![CDATA[We must remove all dd for this mod to work.  You can add additional items but you must remove the <dd> and replace the </dd> with a <br />]]></comment>
-				<find><![CDATA[		<dd>&nbsp;</dd>
-
-		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->
-		<!-- IF postrow.POSTER_JOINED --><dd><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}</dd><!-- ENDIF -->
-		<!-- IF postrow.POSTER_FROM --><dd><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}</dd><!-- ENDIF -->
-
-		<!-- IF postrow.S_PROFILE_FIELD1 -->
-			<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
-			<dd><strong>{postrow.PROFILE_FIELD1_NAME}:</strong> {postrow.PROFILE_FIELD1_VALUE}</dd>
-		<!-- ENDIF -->
-
-		<!-- BEGIN custom_fields -->
-			<dd><strong>{postrow.custom_fields.PROFILE_FIELD_NAME}:</strong> {postrow.custom_fields.PROFILE_FIELD_VALUE}</dd>
-		<!-- END custom_fields -->]]></find>
-				<action type="replace-with"><![CDATA[			<!-- IF not S_IS_BOT && postrow.U_POST_AUTHOR -->
-			<dt id="show_{postrow.POST_ID}">
-					<strong>{L_USERDETAILS}:</strong>&nbsp;<a href="#" id="href_{postrow.POST_ID}" onclick="showDisplay({postrow.POST_ID}); return false;"><img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" /></a>
-			</dt>
-			<dt id="hide_{postrow.POST_ID}" style="display:none;"> 			
-				<!-- IF postrow.POSTER_POSTS != '' --><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}<br /><!-- ENDIF -->
-				<!-- IF postrow.POSTER_JOINED --><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}<br /><!-- ENDIF -->
-				<!-- IF postrow.POSTER_FROM --><strong>{L_LOCATION}:</strong> {postrow.POSTER_FROM}<br /><!-- ENDIF -->
-				<!-- IF postrow.POSTER_LASTVISIT --><strong>{L_LASTVISIT}:</strong> {postrow.POSTER_LASTVISIT}<br /><!-- ENDIF -->
-				<!-- IF postrow.S_PROFILE_FIELD1 -->
-					<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
-					<strong>{postrow.PROFILE_FIELD1_NAME}:</strong> {postrow.PROFILE_FIELD1_VALUE}<br />
-				<!-- ENDIF -->
-
-				<!-- BEGIN custom_fields -->
-					<strong>{postrow.custom_fields.PROFILE_FIELD_NAME}:</strong> {postrow.custom_fields.PROFILE_FIELD_VALUE}<br />
-				<!-- END custom_fields -->
-			</dt>
-			<!-- ENDIF -->]]></action>
-			</edit>
+				<find><![CDATA[<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG -->]]></find>
+				<action type="after-add"><![CDATA[			<dd id="show{postrow.POST_ID}" style="display:none;">
+					<strong>{L_USERDETAILS}:</strong>&nbsp;<img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" />
+			</dd>]]></action>
+			</edit>			
 		</open>
-		<diy-instructions lang="en"><![CDATA[Refresh the prosilver template in the ACP (ACP->Styles->Templates->Refresh).]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Refresh the template in the ACP (ACP->Styles->Templates->Refresh).]]></diy-instructions>
 	</action-group>
 </mod>

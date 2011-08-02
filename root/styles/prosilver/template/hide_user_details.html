@@ -1,0 +1,40 @@
+<script type="text/javascript">
+// <![CDATA[
+var hideDetails = '{LA_HIDEDETAILS}';
+var showDetails = '{LA_SHOWDETAILS}';
+var imageOpen = '{ROOT_PATH}images/open.png';
+var imageClose = '{ROOT_PATH}images/close.png';
+$(function(){
+	var cache = [];
+	// Arguments are image paths relative to the current page.
+	$.preLoadImages = function() {
+		var args_len = arguments.length;
+		for (var i = args_len; i--;) {
+		  var cacheImage = document.createElement('img');
+		  cacheImage.src = arguments[i];
+		  cache.push(cacheImage);
+		}
+	};
+	$.preLoadImages(imageOpen, imageClose);
+
+	$("dd[id*='show']").each(function(){
+		$(this).closest('dl').children('dd:not([id*="show"])').hide('fast');
+		$(this).show('fast');
+		$(this).css('cursor', 'pointer');
+		$(this).click(function(){
+			if($('img', this).attr('src') == imageOpen)
+			{
+				$(this).closest('dl').children().fadeIn('slow');
+				$("img", this).attr('src',imageClose).attr('title', hideDetails).attr('alt', hideDetails);
+			}
+			else
+			{
+				$(this).closest('dl').children('dd:not([id*="show"])').fadeOut('slow');
+				$("img", this).attr('src',imageOpen).attr('title', showDetails).attr('alt', showDetails);
+			}
+		});
+	});
+});
+
+// ]]>
+</script>
