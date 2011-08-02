@@ -18,18 +18,19 @@ $(function(){
 	$.preLoadImages(imageOpen, imageClose);
 
 	$("dd[id*='show']").each(function(){
-		$(this).closest('dl').children('dd:not([id*="show"])').hide('fast');
+		var ddid = $(this).attr('id');
+		$(this).closest('dl').children('dd:not(#'+ ddid +')').hide('fast');
 		$(this).show('fast');
 		$(this).css('cursor', 'pointer');
 		$(this).click(function(){
 			if($('img', this).attr('src') == imageOpen)
 			{
-				$(this).closest('dl').children().fadeIn('slow');
+				$(this).closest('dl').children().slideDown('slow');
 				$("img", this).attr('src',imageClose).attr('title', hideDetails).attr('alt', hideDetails);
 			}
 			else
 			{
-				$(this).closest('dl').children('dd:not([id*="show"])').fadeOut('slow');
+				$(this).closest('dl').children('dd:not(#' + ddid +')').slideUp('slow');
 				$("img", this).attr('src',imageOpen).attr('title', showDetails).attr('alt', showDetails);
 			}
 		});
