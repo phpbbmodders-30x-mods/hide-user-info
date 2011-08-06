@@ -133,7 +133,7 @@ hideDisplay = function(id)
 				<!-- END custom_fields -->
 			</dt>
 			<!-- ENDIF -->]]></find>
-				<action type="replace-with"><![CDATA[			<dd id="show{postrow.POST_ID}" style="display:none;">
+				<action type="replace-with"><![CDATA[			<dd class="hide_profile" style="display:none;">
 					<strong>{L_USERDETAILS}:</strong>&nbsp;<img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" />
 			</dd>
 			<dd>&nbsp;</dd>
@@ -196,7 +196,7 @@ hideDisplay = function(id)
 			</div>
 			<!-- ENDIF -->]]></find>
 						<action type="replace-with"> <![CDATA[			<!-- IF not S_IS_BOT && postrow.U_POST_AUTHOR -->
-			<div id="show_{postrow.POST_ID}" style="display:none;">
+			<div class="hide_profile" style="display:none;">
 					<b>{L_USERDETAILS}:</b>&nbsp;<img src="{ROOT_PATH}images/open.png" alt="{L_USERDETAILS}" title="{L_USERDETAILS}" height="16px" width="16px" />
 			</div>
 			<!-- ENDIF -->]]></action>

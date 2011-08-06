@@ -104,7 +104,7 @@ $lang = array_merge($lang, array(
 			</edit>
 			<edit>
 				<find><![CDATA[<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG -->]]></find>
-				<action type="after-add"><![CDATA[			<dd id="show{postrow.POST_ID}" style="display:none;">
+				<action type="after-add"><![CDATA[			<dd class="hide_profile" style="display:none;">
 					<strong>{L_USERDETAILS}:</strong>&nbsp;<img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" />
 			</dd>]]></action>
 			</edit>			

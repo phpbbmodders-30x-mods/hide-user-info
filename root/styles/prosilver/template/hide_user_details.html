@@ -17,21 +17,20 @@ $(function(){
 	};
 	$.preLoadImages(imageOpen, imageClose);
 
-	$("dd[id*='show']").each(function(){
-		var ddid = $(this).attr('id');
-		$(this).closest('dl').children('dd:not(#'+ ddid +')').hide('fast');
-		$(this).show('fast');
+	$("dd.hide_profile").each(function(){
+		$(this).closest('dl').children("dd").hide('fast');
+		$(this).delay(500).show('fast');
 		$(this).css('cursor', 'pointer');
 		$(this).click(function(){
 			if($('img', this).attr('src') == imageOpen)
 			{
-				$(this).closest('dl').children().slideDown('slow');
-				$("img", this).attr('src',imageClose).attr('title', hideDetails).attr('alt', hideDetails);
+				$(this).closest('dl').children("dd:not(.hide_profile)").fadeIn('fast');
+				$("img", this).attr('src', imageClose).attr('title', hideDetails).attr('alt', hideDetails);
 			}
 			else
 			{
-				$(this).closest('dl').children('dd:not(#' + ddid +')').slideUp('slow');
-				$("img", this).attr('src',imageOpen).attr('title', showDetails).attr('alt', showDetails);
+				$(this).closest('dl').children("dd:not(.hide_profile)").fadeOut('fast');
+				$("img", this).attr('src', imageOpen).attr('title', showDetails).attr('alt', showDetails);
 			}
 		});
 	});

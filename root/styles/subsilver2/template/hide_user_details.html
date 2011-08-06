@@ -17,9 +17,9 @@ $(function(){
 	};
 	$.preLoadImages(imageOpen, imageClose);
 
-	$("div[id*='show']").each(function(){
+	$("div.hide_profile").each(function(){
 		$(this).next('span').hide('fast');
-		$(this).show('fast');
+		$(this).delay(500).show('fast');
 		$(this).css('cursor', 'pointer');
 		$(this).click(function(){
 			if($('img', this).attr('src') == imageOpen)
