@@ -101,13 +101,7 @@ $lang = array_merge($lang, array(
 			<edit>
 				<find><![CDATA[<!-- INCLUDE overall_header.html -->]]></find>
 				<action type="after-add"><![CDATA[<!-- INCLUDE hide_user_details.html -->]]></action>
-			</edit>
-			<edit>
-				<find><![CDATA[<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG -->]]></find>
-				<action type="after-add"><![CDATA[			<dd class="hide_profile" style="display:none;">
-					<strong>{L_USERDETAILS}:</strong>&nbsp;<img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" />
-			</dd>]]></action>
-			</edit>			
+			</edit>		
 		</open>
 		<diy-instructions lang="en"><![CDATA[Refresh the template in the ACP (ACP->Styles->Templates->Refresh).]]></diy-instructions>
 	</action-group>

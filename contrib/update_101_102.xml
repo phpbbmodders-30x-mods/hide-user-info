@@ -133,9 +133,7 @@ hideDisplay = function(id)
 				<!-- END custom_fields -->
 			</dt>
 			<!-- ENDIF -->]]></find>
-				<action type="replace-with"><![CDATA[			<dd class="hide_profile" style="display:none;">
-					<strong>{L_USERDETAILS}:</strong>&nbsp;<img src="{ROOT_PATH}images/open.png" alt="{L_SHOWDETAILS}" title="{L_SHOWDETAILS}" height="16px" width="16px" />
-			</dd>
+				<action type="replace-with"><![CDATA[
 			<dd>&nbsp;</dd>
 
 		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->

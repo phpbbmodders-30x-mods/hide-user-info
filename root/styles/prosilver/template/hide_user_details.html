@@ -2,6 +2,7 @@
 // <![CDATA[
 var hideDetails = '{LA_HIDEDETAILS}';
 var showDetails = '{LA_SHOWDETAILS}';
+var userDetails = '{LA_USERDETAILS}';
 var imageOpen = '{ROOT_PATH}images/open.png';
 var imageClose = '{ROOT_PATH}images/close.png';
 $(function(){
@@ -17,20 +18,23 @@ $(function(){
 	};
 	$.preLoadImages(imageOpen, imageClose);
 
-	$("dd.hide_profile").each(function(){
-		$(this).closest('dl').children("dd").hide('fast');
-		$(this).delay(500).show('fast');
+	$('dl.postprofile').each(function(){
+		$(this).children("dd").hide('fast');
+		var nextdt = $(this).children('dt');
+		$('<dd class="hide_profile"><strong>' + userDetails + ':</strong> <img src="' + imageOpen + '" alt="' + showDetails + '" title="' + showDetails + '" height="16px" width="16px" /></dd><dd>&nbsp;</dd>').insertAfter(nextdt);
+	});
+	$('dd.hide_profile').each(function(){
 		$(this).css('cursor', 'pointer');
 		$(this).click(function(){
 			if($('img', this).attr('src') == imageOpen)
 			{
-				$(this).closest('dl').children("dd:not(.hide_profile)").fadeIn('fast');
-				$("img", this).attr('src', imageClose).attr('title', hideDetails).attr('alt', hideDetails);
+				$(this).closest('dl').children("dd:not(.hide_profile)").slideDown('slow');
+				$('img', this).attr('src',imageClose).attr('title', hideDetails).attr('alt', hideDetails);
 			}
 			else
 			{
-				$(this).closest('dl').children("dd:not(.hide_profile)").fadeOut('fast');
-				$("img", this).attr('src', imageOpen).attr('title', showDetails).attr('alt', showDetails);
+				$(this).closest('dl').children("dd:not(.hide_profile)").slideUp('fast');
+				$('img', this).attr('src',imageOpen).attr('title', showDetails).attr('alt', showDetails);
 			}
 		});
 	});
